@@ -1,0 +1,6 @@
+.head-nav a, .gam-menu a{
+  @include text(1.125em, 400, 1em);
+  color: #ccc;
+  text-transform:capitalize;
+}
+
