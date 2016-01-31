@@ -208,12 +208,45 @@
     </div>
 <!-----------------------------------Tabs-------------------------------------->
 
+<!------------------------------------------ Tooltip ------------------------------->
+        <div class="tooltip container" id="tooltip">
+
+        <h2> Tooltip </h2>
+        <div class="tooltips-text">
+            <p> </p>
+        </div>
+
+            <p>
+                <a href="#" class="tooltips" data-title="That&apos;s what this widget is" >Tooltips</a> can be attached to any element. When you hover
+                the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.
+            </p>
+            <p>
+                But as it's not a native tooltip, it can be styled. Any themes built with
+                <a href="http://jqueryui.com/themeroller/" class="tooltips" data-title="ThemeRoller: jQuery UI&apos;s theme builder application" >ThemeRoller</a>
+                will also style tooltips accordingly.
+            </p>
+            <p>
+                Tooltips are also useful for form elements, to show some additional information in the context of each field.
+            </p>
+            <p>
+                <label for="age">Your age:</label><input id="age" class="tooltips" data-title="We ask for your age only for statistical purposes." >
+            </p>
+            <p>
+                Hover the field to see the tooltip.
+            </p>
+
+        </div>
+<!------------------------------------------ Tooltip ------------------------------->
+
+
+
+
 </main>
 
 <!------------------------------------------ Accordion ------------------------------->
 <script>
-           $('#accordion dt').on('click', function(event){
-               $('#accordion dd').slideUp();
+           $('#accordion').find('dt').on('click', function(){
+               $('#accordion').find('dd').slideUp();
                if ($(this).next().is(':visible')) {
                    $(this).next().slideUp();
                }
@@ -264,19 +297,41 @@
 
 
 
-
 </script>
 
 <!------------------------------------------ Tabs ------------------------------->
-<!------------------------------------------ Scrolling ------------------------------->
+
+
+<!------------------------------------------ Tooltip ------------------------------->
 <script>
-    $(document).ready(function() {
-        $('a[href*=#]').bind('click', function(event) {
+    $(document).ready(function () {
+        $('.tooltips').hover(function (event) {
+                    var     tooltip_x = $(this).position().left,
+                            tooltip_y = $(this).position().top;
+                    $('.tooltips-text p').text($(this).attr('data-title'));
+                    $('.tooltips-text').css({
+                        'display' : 'block',
+                        'top' : tooltip_y + 20 + 'px',
+                        'left' : tooltip_x + 20 + 'px'
+                    });
+                    $(this).after($('.tooltips-text'));
+
+
+                    return false;
+                }
+                , function () {
+                    $('.tooltips-text').css({'display': 'none'});
+                    return false;
+                })
+    });
+
+    $(document).ready(function () {
+        $('a[href=#]').bind('click', function (event) {
             event.preventDefault();
 
             var target = $(this).attr("href");
 
-            $('body').stop().animate({ scrollTop: $(target).offset().top}, 500, function() {
+            $('body').stop().animate({scrollTop: $(target).offset().top}, 500, function () {
                 location.hash = target;
             });
 
@@ -285,7 +340,6 @@
     });
 
 </script>
-<!------------------------------------------ Scrolling ------------------------------>
 
 
 </body>
